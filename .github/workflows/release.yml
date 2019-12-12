@@ -1,8 +1,8 @@
 name: release
 on:
   pull_request:
-      branches:
-        - master
+    branches:
+      - master
   push:
     branches:
       - master
@@ -11,17 +11,18 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v1
-    - name: Generate the stylesheet file
-      run: npm run generate
-    - name: bump version
-      run: npm version patch
-    - name: create .npmrc
-      run: echo ${{ secrets.NPM_TOKEN }} > .npmrc
-    - name: npm publish
-      run: npm publish
-    - name: Push changes
-      uses: "./.github/actions/git-push-action"
-      with:
+      - uses: actions/checkout@v1
+      - run: npm i
+      - name: Generate the stylesheet file
+        run: npm run generate
+      - name: bump version
+        run: npm version patch
+      - name: create .npmrc
+        run: echo ${{ secrets.NPM_TOKEN }} > .npmrc
+      - name: npm publish
+        run: npm publish
+      - name: Push changes
+        uses: "./.github/actions/git-push-action"
+        with:
           branch: master
           github_token: ${{ secrets.UNI_PUSH_TOKEN }}
