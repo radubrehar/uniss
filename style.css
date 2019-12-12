@@ -1,18 +1,207 @@
-.background\=blue {
-  background: blue;
+.display\=block {
+  display: block;
 }
-.background\=red\:hover:hover {
-  background: red;
+.display\=inline-block {
+  display: inline-block;
+}
+.display\=inline {
+  display: inline;
+}
+.display\=flex {
+  display: flex;
+}
+.display\=inline-flex {
+  display: inline-flex;
+}
+.display\=table {
+  display: table;
+}
+.display\=table-row {
+  display: table-row;
+}
+.display\=table-cell {
+  display: table-cell;
+}
+.display\=none {
+  display: none;
+}
+@media (min-width: 640px) {
+.display\=block {
+  display: block;
+}          
+}
+@media (min-width: 768px) {
+.display\=block {
+  display: block;
+}          
 }
 @media (min-width: 1024px) {
-  .background\=orange\@lg {
-    background: orange;
-  }
+.display\=block {
+  display: block;
+}          
 }
-.padding\=50px {
-  padding: 50px;
+ @media (min-width: 1280px) {
+.display\=block {
+  display: block;
+}          
 }
-
-.width\=50\% {
-  width: 50%;
+@media (min-width: 640px) {
+.display\=inline-block {
+  display: inline-block;
+}          
+}
+@media (min-width: 768px) {
+.display\=inline-block {
+  display: inline-block;
+}          
+}
+@media (min-width: 1024px) {
+.display\=inline-block {
+  display: inline-block;
+}          
+}
+ @media (min-width: 1280px) {
+.display\=inline-block {
+  display: inline-block;
+}          
+}
+@media (min-width: 640px) {
+.display\=inline {
+  display: inline;
+}          
+}
+@media (min-width: 768px) {
+.display\=inline {
+  display: inline;
+}          
+}
+@media (min-width: 1024px) {
+.display\=inline {
+  display: inline;
+}          
+}
+ @media (min-width: 1280px) {
+.display\=inline {
+  display: inline;
+}          
+}
+@media (min-width: 640px) {
+.display\=flex {
+  display: flex;
+}          
+}
+@media (min-width: 768px) {
+.display\=flex {
+  display: flex;
+}          
+}
+@media (min-width: 1024px) {
+.display\=flex {
+  display: flex;
+}          
+}
+ @media (min-width: 1280px) {
+.display\=flex {
+  display: flex;
+}          
+}
+@media (min-width: 640px) {
+.display\=inline-flex {
+  display: inline-flex;
+}          
+}
+@media (min-width: 768px) {
+.display\=inline-flex {
+  display: inline-flex;
+}          
+}
+@media (min-width: 1024px) {
+.display\=inline-flex {
+  display: inline-flex;
+}          
+}
+ @media (min-width: 1280px) {
+.display\=inline-flex {
+  display: inline-flex;
+}          
+}
+@media (min-width: 640px) {
+.display\=table {
+  display: table;
+}          
+}
+@media (min-width: 768px) {
+.display\=table {
+  display: table;
+}          
+}
+@media (min-width: 1024px) {
+.display\=table {
+  display: table;
+}          
+}
+ @media (min-width: 1280px) {
+.display\=table {
+  display: table;
+}          
+}
+@media (min-width: 640px) {
+.display\=table-row {
+  display: table-row;
+}          
+}
+@media (min-width: 768px) {
+.display\=table-row {
+  display: table-row;
+}          
+}
+@media (min-width: 1024px) {
+.display\=table-row {
+  display: table-row;
+}          
+}
+ @media (min-width: 1280px) {
+.display\=table-row {
+  display: table-row;
+}          
+}
+@media (min-width: 640px) {
+.display\=table-cell {
+  display: table-cell;
+}          
+}
+@media (min-width: 768px) {
+.display\=table-cell {
+  display: table-cell;
+}          
+}
+@media (min-width: 1024px) {
+.display\=table-cell {
+  display: table-cell;
+}          
+}
+ @media (min-width: 1280px) {
+.display\=table-cell {
+  display: table-cell;
+}          
+}
+@media (min-width: 640px) {
+.display\=none {
+  display: none;
+}          
+}
+@media (min-width: 768px) {
+.display\=none {
+  display: none;
+}          
+}
+@media (min-width: 1024px) {
+.display\=none {
+  display: none;
+}          
+}
+ @media (min-width: 1280px) {
+.display\=none {
+  display: none;
+}          
 }

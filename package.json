@@ -4,7 +4,8 @@
   "description": "Universal utility-first CSS library for writing less CSS",
   "main": "index.js",
   "scripts": {
-    "dev": "parcel index.html"
+    "dev": "parcel index.html",
+    "generate": "ts-node build.ts"
   },
   "repository": {
     "type": "git",
@@ -16,7 +17,10 @@
     "url": "https://github.com/radubrehar/uniss/issues"
   },
   "homepage": "https://github.com/radubrehar/uniss#readme",
-  "dependencies": {
-    "parcel-bundler": "^1.12.4"
+  "devDependencies": {
+    "@types/node": "^12.12.17",
+    "parcel-bundler": "^1.12.4",
+    "ts-node": "^8.5.4",
+    "typescript": "^3.7.3"
   }
 }
