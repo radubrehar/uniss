@@ -1,0 +1,18 @@
+.background\=blue {
+  background: blue;
+}
+.background\=red\:hover:hover {
+  background: red;
+}
+@media (min-width: 1024px) {
+  .background\=orange\@lg {
+    background: orange;
+  }
+}
+.padding\=50px {
+  padding: 50px;
+}
+
+.width\=50\% {
+  width: 50%;
+}

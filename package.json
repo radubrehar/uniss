@@ -1,0 +1,22 @@
+{
+  "name": "uniss",
+  "version": "1.0.0",
+  "description": "Universal utility-first CSS library for writing less CSS",
+  "main": "index.js",
+  "scripts": {
+    "dev": "parcel index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/radubrehar/uniss.git"
+  },
+  "author": "zpytchrb",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/radubrehar/uniss/issues"
+  },
+  "homepage": "https://github.com/radubrehar/uniss#readme",
+  "dependencies": {
+    "parcel-bundler": "^1.12.4"
+  }
+}
