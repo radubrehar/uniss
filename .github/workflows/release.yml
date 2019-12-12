@@ -21,7 +21,8 @@ jobs:
         run: npm run generate
       - run: cat index.css
       - name: bump version
-        run: npm version patch
+        if: ${WILL_RELEASE_TYPE} == "canary"
+        run: npm version ${WILL_RELEASE_TYPE}
       - name: create .npmrc
         run: echo //registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }} > .npmrc
       - run: cat .npmrc
