@@ -1,6 +1,6 @@
 {
   "name": "uniss",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "description": "Universal utility-first CSS library for writing less CSS",
   "main": "index.js",
   "scripts": {

@@ -69,4 +69,4 @@ ${text}
   [] as string[]
 );
 
-require("fs").writeFileSync("./style.css", result.join("\n"));
+require("fs").writeFileSync("./index.css", result.join("\n"));
