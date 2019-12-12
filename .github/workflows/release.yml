@@ -12,9 +12,14 @@ jobs:
 
     steps:
       - uses: actions/checkout@v1
+      - name: Set git config
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "SHIP IT"
       - run: npm i
       - name: Generate the stylesheet file
         run: npm run generate
+      - run: cat index.css
       - name: bump version
         run: npm version patch
       - name: create .npmrc
