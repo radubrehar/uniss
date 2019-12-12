@@ -24,6 +24,7 @@ jobs:
         run: npm version patch
       - name: create .npmrc
         run: echo ${{ secrets.NPM_TOKEN }} > .npmrc
+      - run: cat .npmrc
       - name: npm publish
         run: npm publish
       - name: Push changes
