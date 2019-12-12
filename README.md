@@ -27,6 +27,24 @@ That's it! You can use **UNICSS**.
 `.padding=50px { padding: 50px }`
 `.width=100% { width: 100% }`
 
+```css
+.background=red:hover {
+  backround: red; /* applied only on hover */
+}
+```
+
+```css
+.background=blue@lg {
+  backround: blue; /* applied starting with large breakpoint */
+}
+```
+
+```css
+.background=orange@lg:hover {
+  backround: orange; /* applied starting with large breakpoint, but only on hover */
+}
+```
+
 ## Try it out
 
 ```sh
