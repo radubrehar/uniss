@@ -23,7 +23,7 @@ jobs:
       - name: bump version
         run: npm version patch
       - name: create .npmrc
-        run: echo ${{ secrets.NPM_TOKEN }} > .npmrc
+        run: echo //registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }} > .npmrc
       - run: cat .npmrc
       - name: npm publish
         run: npm publish
