@@ -14,8 +14,8 @@
     "type": "git",
     "url": "git+https://github.com/radubrehar/uniss.git"
   },
-  "author": "zpytchrb",
-  "license": "ISC",
+  "author": "radubrehar",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/radubrehar/uniss/issues"
   },
