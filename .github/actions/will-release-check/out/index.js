@@ -531,6 +531,7 @@ async function run() {
       ? `ambigous release commit message: should have the format "release version <canary|patch|minor|major>"`
       : "no release will happen";
 
+    core.setFailed(feedback);
     core.info(feedback);
 
     core.exportVariable("WILL_RELEASE", "false");
