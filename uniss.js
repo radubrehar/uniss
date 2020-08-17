@@ -1,41 +1,60 @@
-const options = {
-  prefix: "un", // class prefix
-  inline: false, // set css as inline, applies only to ones without :state and @media
-  internal: true, // set classes in internall <style>
-  mediaQueries: [
-    {
-      name: "sm",
-      value: "@media (min-width: 640px)",
-    },
-    {
-      name: "md",
-      value: "@media (min-width: 768px)",
-    },
-    {
-      name: "lg",
-      value: "@media (min-width: 1024px)",
-    },
-    {
-      name: "xl",
-      value: " @media (min-width: 1280px)",
-    },
-  ],
-  pseudoStates: ["hover", "active", "visited", "focus", "focus-within"],
-};
+export default class Uniss {
+  constructor(options) {
+    // setup option variables
+    this.prefix = options.prefix || "un";
+    this.inline = options.inline !== undefined ? options.inline : false;
+    this.internal = options.internal !== undefined ? options.internal : false;
+    this.rootElement = options.rootElement || document.body;
 
-window.onload = function () {
-  const ourStyleElement = document.createElement("style");
-  if (options.internal) {
-    // if enabled adds <style> with our css to head
-    document.head.appendChild(ourStyleElement);
+    this.mediaQueries = {
+      ...defaultMediaQueries,
+      ...options.mediaQueries,
+    };
+    this.pseudoStates = [...defaultPseudoStates];
+
+    this.cache = {
+      base: {},
+      props: {},
+    };
+
+    // set up mutation watcher to track new changes in nodes
+    if (options.watch) {
+      this.observer = new MutationObserver(this.handleClassChange.bind(this));
+      this.observer.observe(this.rootElement, {
+        attributes: true,
+        childList: true,
+        subtree: true,
+      });
+    }
+
+    // if internal === true, create style store all css
+    if (this.internal) {
+      this.style = document.createElement("style");
+      document.head.appendChild(this.style);
+    }
+
+    this.load = this.load.bind(this);
+    this.generateFromElement = this.generateFromElement.bind(this);
+    this.handleClassChange = this.handleClassChange.bind(this);
+    this.mediaWrapper = this.mediaWrapper.bind(this);
+    this.traverseChildren = this.traverseChildren.bind(this);
+
+    this.addToCache = this.addToCache.bind(this);
+    this.checkIfInCache = this.checkIfInCache.bind(this);
+
+    this.load();
   }
 
-  const searchQuery = `[class*='${options.prefix}-']`; // search string for elemnt selection
+  load() {
+    const searchQuery = `[class*='${this.prefix}-']`; // search string for elemnt selection
 
-  const allElems = document.querySelectorAll(searchQuery);
-  allElems.forEach((elem) => {
+    const allElems = this.rootElement.querySelectorAll(searchQuery);
+    allElems.forEach(this.generateFromElement);
+  }
+
+  generateFromElement(elem) {
     const classList = [...elem.classList]
-      .filter((cls) => cls.startsWith(options.prefix)) // filter out other classes in this element without prefix
+      .filter((cls) => cls.startsWith(this.prefix)) // filter out other classes in this element without prefix
       .filter((cls) => cls.indexOf("=") !== -1); // filter out invalid properties;
     const classObject = [
       // here we destruct and store each class as object
@@ -49,18 +68,26 @@ window.onload = function () {
     ];
 
     classList.forEach((base) => {
+      // if we alredy have rule for this class, we just skip it
+      if (this.checkIfInCache(base)) return;
+
+      // if we dont, we add it to cache so we skip it next time
+      this.addToCache(base);
+
       // spliting classes into signle tokens
       let [prop, right] = base.split("=");
       prop = prop.replace(`${options.prefix}-`, "");
       let [left, media] = right.split("@");
       let [value, state] = left.split(":");
-      
+
       base = base
-      .replace("=", "\\=")
-      .replace("@", "\\@")
-      .replace("#", "\\#")
-      .replace(":", "\\:")
-      .replace("%",'\\%');
+        .replace("=", "\\=")
+        .replace("-", "\\-")
+        .replace("@", "\\@")
+        .replace("#", "\\#")
+        .replace(":", "\\:")
+        .replace("%", "\\%")
+        .replace(".", "\\.");
 
       classObject.push({
         prop,
@@ -71,7 +98,7 @@ window.onload = function () {
       });
     });
 
-    if (options.inline) {
+    if (this.inline) {
       // if inline is enabled, we add it to element
       const cssVar = classObject
         .filter((obj) => !obj.state && !obj.media) // remove ones with :state or @media in it
@@ -80,28 +107,78 @@ window.onload = function () {
       elem.style.cssText += cssVar;
     }
 
-    if (options.internal) {
+    if (this.internal) {
       classObject.forEach((obj) => {
         let classText = `.${obj.base}${obj.state ? `:${obj.state}` : ""} {\t${
           obj.prop
         }: ${obj.value};\t}\n`;
-        console.log(classText);
         if (obj.media) {
-          classText = mediaWrapper(obj.media, classText);
+          classText = this.mediaWrapper(obj.media, classText);
         }
-        ourStyleElement.innerHTML += classText;
+        this.style.innerHTML += classText;
       });
     }
-  });
+  }
 
-  function mediaWrapper(name, css) {
-    let media = options.mediaQueries.find((mq) => mq.name === name);
+  mediaWrapper(name, css) {
+    let media = this.mediaQueries[name];
     if (!media) {
       console.warn(`Invalid media query value: ${name}`);
       return css;
     }
 
-    return `${media.value} {\n\t${css}}\n`;
+    return `${media} {\n\t${css}}\n`;
   }
-  window.mediaWrapper = mediaWrapper;
+
+  addToCache(base) {
+    this.cache.base[base] = true;
+  }
+  checkIfInCache(base) {
+    return this.cache.base[base];
+  }
+
+  traverseChildren(elem) {
+    this.generateFromElement(elem);
+    let children = [...elem.children]
+      .filter((child) => child.nodeName !== "#text")
+      .forEach(this.traverseChildren);
+  }
+
+  handleClassChange(mutationList) {
+    mutationList.forEach((mutation) => {
+      console.log(mutation);
+      if (mutation.type === "childList") {
+        [...mutation.addedNodes]
+          .filter((elem) => elem.nodeName !== "#text")
+          .forEach(this.traverseChildren);
+      } else if (
+        mutation.type === "attributes" &&
+        mutation.attributeName === "class"
+      ) {
+        this.generateFromElement(mutation.target);
+      }
+    });
+  }
+
+  stop() {
+    if (this.observer) {
+      this.observer.disconnect();
+    }
+  }
+}
+
+const defaultPseudoStates = [
+  "hover",
+  "active",
+  "visited",
+  "focus",
+  "focus-within",
+];
+const defaultMediaQueries = {
+  sm: "@media (min-width: 640px)",
+  md: "@media (min-width: 768px)",
+  lg: "@media (min-width: 1024px)",
+  xl: "@media (min-width: 1280px)",
 };
+
+window.Uniss = Uniss;
