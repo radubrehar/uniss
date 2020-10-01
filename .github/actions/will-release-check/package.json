@@ -8,7 +8,7 @@
     "package": "ncc build index.js -o out"
   },
   "dependencies": {
-    "@actions/core": "^1.1.1",
+    "@actions/core": "^1.2.6",
     "@actions/github": "^2.0.0"
   },
   "devDependencies": {
