@@ -5,14 +5,26 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>UNICSS</title>
     <link rel="stylesheet" href="index.css" />
+    <script src='uniss.js'></script>
   </head>
   <div>
-    <h1>UNICSS</h1>
+    <h1 class="un-width=50% un-color=#f80">UNICSS</h1>
 
     <div
-      class="background=blue background=orange@lg background=red:hover padding=50px width=50%"
+      class="un-background=blue un-background=orange@lg un-background=red:hover un-padding=50px un-width=50% un-color=#f80"
     >
       a simple div
     </div>
   </div>
+  <script>
+    const options={
+      inline:false,
+      internal: true,
+      prefix: "un",
+      watch: true,
+      rootElement: document.body
+    }
+
+    const uniss = new Uniss(options);
+  </script>
 </html>
